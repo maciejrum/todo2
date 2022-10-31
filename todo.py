@@ -49,5 +49,5 @@ todo_instance(add_task, task={'task_name': 'Zrobić porządek', 'task_status': '
 todo_instance(add_task, task={'task_name': 'Wyjąc naczynia ze zmywarki', 'task_status': 'Done'})
 todo_instance(add_task, task={'task_name': 'Kupić mleko', 'task_status': 'In progress'})
 
-todo_instance(update_task, task_name='Zrobić porządek', task_status='Not started', updates={'task_status': 'Done'})
+todo_instance(update_task, task_name='Zrobić porządek', task_status='Not started', updates={'task_status': 'In progress'})
 pp(todo_instance())
