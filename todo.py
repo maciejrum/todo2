@@ -5,15 +5,14 @@ def sort_todo(key):
     def wrapper(fn):
         def inner(*args, **kwargs):
             return sorted(fn(*args, **kwargs), key=lambda item: item[key], reverse=True)
-
         return inner
-
     return wrapper
 
 
 def todo():
     todo_data = []
 
+    @sort_todo(key='task_status')
     def inner(fn=None, **kwargs):
         return fn(todo_data, **kwargs) if fn is not None else todo_data
 
@@ -52,13 +51,27 @@ def update_task(todo_data, task_name, task_status, updates):
         raise ValueError(f'Cannot update {task_name} with status {task_status}')
 
     task.update(updates)
+    return todo_data
+
+
+def filter_by_status(todo_data, task_status=None):
+    new_todo_data = []
+
+    for task_instance in todo_data:
+
+        if task_instance['task_status'] == task_status:
+            new_todo_data.append(task_instance)
+
+    return new_todo_data
 
 
 todo_instance = todo()
 todo_instance(add_task, task={'task_name': 'Zrobić porządek', 'task_status': 'Not started'})
 todo_instance(add_task, task={'task_name': 'Wyjąc naczynia ze zmywarki', 'task_status': 'Done'})
-todo_instance(add_task, task={'task_name': 'Kupić mleko', 'task_status': 'In progress'})
+todo_instance(add_task, task={'task_name': 'Kupić mleko', 'task_status': 'Not started'})
 
 todo_instance(update_task, task_name='Zrobić porządek', task_status='Not started',
-              updates={'task_status': 'In progress'})
-pp(todo_instance())
+              updates={'task_status': 'Done'})
+
+pp(todo_instance(filter_by_status, task_status='Not started'))
+# pp(todo_instance())

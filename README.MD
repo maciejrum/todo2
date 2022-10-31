@@ -5,6 +5,5 @@
 - Filter
 - Search
 - Add 
-- Update
-- Mark as complete
+- Update(Mark as complete, change name)
 - Delete
